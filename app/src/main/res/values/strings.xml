@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KotlinLesson2</string>
+    <string name="random">random</string>
+    <string name="submit">submit</string>
+    <string name="enter_url">enter_url</string>
+    <string name="avatar">ImageView</string>
+</resources>
