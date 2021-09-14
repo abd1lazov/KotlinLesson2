@@ -2,12 +2,13 @@ package space.abdilazov.kotlinlesson2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import space.abdilazov.kotlinlesson2.extension.loadImageView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var imgUrl: MutableList<String>
+    private var imgUrl = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_random.setOnClickListener {
-            imgUrl.shuffle()
+            if (!imgUrl.isNullOrEmpty()) {
+                val url = imgUrl.random()
+                imageView.loadImageView(this, url)
+            }
         }
-        }
+    }
 }
