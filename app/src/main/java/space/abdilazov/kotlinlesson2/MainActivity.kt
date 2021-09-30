@@ -1,23 +1,20 @@
 package space.abdilazov.kotlinlesson2
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.item_rv.*
-import kotlinx.android.synthetic.main.item_rv.view.*
-import space.abdilazov.kotlinlesson2.extension.loadImageView
 
 class MainActivity : AppCompatActivity() {
 
     private var imgUrl = mutableListOf<String>()
-    private var Adapter: MyAdapter? = null
+    private var myAdapter: MyAdapter? = null
     private var recyclerView: RecyclerView? = null
 
+    @SuppressLint("NotifySetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,18 +34,21 @@ class MainActivity : AppCompatActivity() {
                 "https://cdn.pixabay.com/photo/2015/05/31/11/18/table-setting-791148__480.jpg",
                 "https://cdn.pixabay.com/photo/2020/12/15/14/35/girl-5833835__480.jpg")
 
-        btn_submit.setOnClickListener(View.OnClickListener {
+        btn_submit.setOnClickListener {
 
             imgUrl.add(et_url.text.toString())
-        })
+            myAdapter?.notifyDataSetChanged()
+        }
 
         btn_random.setOnClickListener {
 
             imgUrl.shuffle()
+            myAdapter?.notifyDataSetChanged()
         }
 
             recyclerView = findViewById<View>(R.id.recyclerView) as RecyclerView
             recyclerView!!.layoutManager = GridLayoutManager(this,3)
-            Adapter = MyAdapter(imgUrl)
+            myAdapter = MyAdapter(imgUrl)
+            recyclerView!!.adapter = myAdapter
     }
 }
